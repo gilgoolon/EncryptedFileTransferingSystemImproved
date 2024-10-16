@@ -137,6 +137,8 @@
     <ClCompile Include="Configurator.cpp" />
     <ClCompile Include="Common\OsUtils.cpp" />
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
+    <ClCompile Include="Protocol\RequestHeader.cpp" />
+    <ClCompile Include="Protocol\Serializable.cpp" />
     <ClCompile Include="ServerCommunicator.cpp" />
     <ClCompile Include="Common\StringUtils.cpp" />
     <ClCompile Include="Common\Writers\ConsoleWriter.cpp" />
@@ -154,6 +156,8 @@
     <ClInclude Include="Common\OsUtils.hpp" />
     <ClInclude Include="Common\Readers\Reader.hpp" />
     <ClInclude Include="Common\Readers\SocketReader.hpp" />
+    <ClInclude Include="Protocol\RequestHeader.hpp" />
+    <ClInclude Include="Protocol\Serializable.hpp" />
     <ClInclude Include="ServerCommunicator.hpp" />
     <ClInclude Include="Common\StringUtils.hpp" />
     <ClInclude Include="Common\Writers\ConsoleWriter.hpp" />

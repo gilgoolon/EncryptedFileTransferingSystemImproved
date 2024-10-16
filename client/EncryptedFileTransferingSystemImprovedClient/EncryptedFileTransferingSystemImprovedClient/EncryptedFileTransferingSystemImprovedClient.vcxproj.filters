@@ -54,6 +54,12 @@
     <ClCompile Include="Common\Hex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Protocol\RequestHeader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Serializable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\OsUtils.hpp">
@@ -99,6 +105,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\Hex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\RequestHeader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Serializable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
