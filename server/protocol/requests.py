@@ -51,7 +51,7 @@ class SignupPayload:
 
 class SendPublicKeyPayload(SignupPayload):
     def __init__(self, data: bytes) -> None:
-        super(SendPublicKeyPayload, self).__init__(data)
+        super(SendPublicKeyPayload, self).__init__(data[:super().size()])
         self._public_key = data[super().size():]
 
     def get_public_key(self) -> bytes:

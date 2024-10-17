@@ -28,7 +28,7 @@ int main()
 		client->connect();
 		client_info = client->get_client_info();
 		if (!client_info.is_registered) {
-			os_utils::write_text_file(TRANSFER_INFO_PATH, client->get_client_info().serialize());
+			os_utils::write_text_file(ME_INFO_PATH, client->get_client_info().serialize());
 		}
 	}
 	catch (const std::exception& ex) {
