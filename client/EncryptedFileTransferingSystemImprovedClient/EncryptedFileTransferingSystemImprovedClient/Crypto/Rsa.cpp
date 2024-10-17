@@ -37,7 +37,7 @@ buffer::Buffer crypto::rsa::decrypt(const buffer::Buffer& data, const buffer::Bu
     CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(private_key);
 
     std::string decrypted_data;
-    CryptoPP::StringSource ss_encrypted_data(reinterpret_cast<const byte*>(data.data()), data.size(), true,
+    CryptoPP::StringSource ss_encrypted_data(reinterpret_cast<const buffer::Byte*>(data.data()), data.size(), true,
         new CryptoPP::PK_DecryptorFilter(rng, decryptor,
             new CryptoPP::StringSink(decrypted_data)
         )
