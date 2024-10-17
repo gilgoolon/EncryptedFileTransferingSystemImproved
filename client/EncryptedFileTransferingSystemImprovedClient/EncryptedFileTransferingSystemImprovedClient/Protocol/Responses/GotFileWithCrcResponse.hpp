@@ -2,8 +2,6 @@
 #include "SignupSuccessResponse.hpp"
 
 namespace protocol {
-	static constexpr size_t FILENAME_SIZE = 255;
-
 	class GotFileWithCrcResponse final : public SignupSuccessResponse {
 	public:
 		virtual void deserialize(const buffer::Buffer& data) override;

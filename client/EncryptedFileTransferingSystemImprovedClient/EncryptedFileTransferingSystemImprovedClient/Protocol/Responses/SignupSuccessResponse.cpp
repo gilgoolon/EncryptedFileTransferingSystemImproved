@@ -1,4 +1,5 @@
 #include "SignupSuccessResponse.hpp"
+#include "../Protocol.hpp"
 
 void protocol::SignupSuccessResponse::deserialize(const buffer::Buffer& data)
 {

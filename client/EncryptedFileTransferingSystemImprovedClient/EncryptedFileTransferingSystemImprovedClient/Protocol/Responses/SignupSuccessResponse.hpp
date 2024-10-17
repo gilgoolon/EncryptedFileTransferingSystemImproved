@@ -2,8 +2,6 @@
 #include "Response.hpp"
 
 namespace protocol {
-	static constexpr size_t CLIENT_ID_SIZE = 16;
-
 	class SignupSuccessResponse : public Response {
 	public:
 		virtual void deserialize(const buffer::Buffer& data) override;

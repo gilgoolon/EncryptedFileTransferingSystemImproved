@@ -1,4 +1,5 @@
 #include "GotFileWithCrcResponse.hpp"
+#include "../Protocol.hpp"
 
 void protocol::GotFileWithCrcResponse::deserialize(const buffer::Buffer& data)
 {
