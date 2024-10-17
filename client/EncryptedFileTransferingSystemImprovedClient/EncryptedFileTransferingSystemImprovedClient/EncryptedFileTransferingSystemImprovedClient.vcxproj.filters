@@ -54,9 +54,6 @@
     <ClCompile Include="Common\Hex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Protocol\Requests\Serializable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Protocol\Requests\Request.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

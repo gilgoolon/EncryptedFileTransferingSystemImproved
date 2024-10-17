@@ -160,7 +160,6 @@
     <ClCompile Include="Protocol\Requests\Request.cpp" />
     <ClCompile Include="Protocol\Requests\SendFileRequest.cpp" />
     <ClCompile Include="Protocol\Requests\SendPublicKeyRequest.cpp" />
-    <ClCompile Include="Protocol\Requests\Serializable.cpp" />
     <ClCompile Include="Protocol\Requests\SignupRequest.cpp" />
     <ClCompile Include="Protocol\Responses\Deserializable.hpp" />
     <ClCompile Include="Protocol\Responses\GotFileWithCrcResponse.cpp" />

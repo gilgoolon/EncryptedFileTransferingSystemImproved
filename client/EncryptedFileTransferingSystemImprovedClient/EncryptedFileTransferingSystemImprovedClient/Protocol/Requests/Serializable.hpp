@@ -8,13 +8,6 @@ public:
 	virtual buffer::Buffer serialize() const = 0;
 };
 
-
-buffer::Buffer serialize_uint8(const uint8_t data);
-
-buffer::Buffer serialize_uint16(const uint16_t data);
-
-buffer::Buffer serialize_uint32(const uint32_t data);
-
 template <typename T>
 std::vector<T> concat_vectors(const std::vector<T>& first) {
     return first;
@@ -26,4 +19,14 @@ std::vector<T> concat_vectors(const std::vector<T>& first, const Vectors&... res
     result.reserve(first.size() + (rest.size() + ...));  // Precompute total size
     (result.insert(result.end(), rest.begin(), rest.end()), ...);
     return result;
+}
+
+template <typename UintType>
+buffer::Buffer serialize_uint(const UintType data)
+{
+    buffer::Buffer out(sizeof(data));
+    for (size_t i = 0; i < out.size(); i++) {
+        out.push_back((data >> (out.size() - i - 1) * 8) & 0xff);
+    }
+    return out;
 }

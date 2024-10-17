@@ -16,10 +16,10 @@ buffer::Buffer protocol::SendFileRequest::serialize() const
 	const std::string extended_filename = string_utils::extend(m_filename, FILENAME_SIZE);
 	return concat_vectors(
 		Request::serialize(),
-		serialize_uint32(m_content.size()),
-		serialize_uint32(m_original_size),
-		serialize_uint16(PACKET_NUMBER),
-		serialize_uint16(TOTAL_PACKETS),
+		serialize_uint<uint32_t>(m_content.size()),
+		serialize_uint<uint32_t>(m_original_size),
+		serialize_uint<uint16_t>(PACKET_NUMBER),
+		serialize_uint<uint16_t>(TOTAL_PACKETS),
 		buffer::Buffer(extended_filename.begin(), extended_filename.end()),
 		m_content
 	);
