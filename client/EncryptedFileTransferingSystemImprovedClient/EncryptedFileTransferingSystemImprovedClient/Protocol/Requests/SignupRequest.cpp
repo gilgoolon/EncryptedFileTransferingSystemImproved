@@ -3,7 +3,7 @@
 #include "../../Common/StringUtils.hpp"
 
 protocol::SignupRequest::SignupRequest(const std::string& client_name)
-	: Request(buffer::Buffer(CLIENT_ID_SIZE, CLIENT_ID_UNINITIALIZED_VALUE), protocol::RequestCode::SIGNUP, client_name.size())
+	: Request(buffer::Buffer(CLIENT_ID_SIZE, CLIENT_ID_UNINITIALIZED_VALUE), protocol::RequestCode::SIGNUP, CLIENT_NAME_SIZE)
 	, m_client_name(client_name)
 {
 }
