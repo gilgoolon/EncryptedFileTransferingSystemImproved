@@ -50,6 +50,7 @@ void Client::sign_up()
 	auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::SignupRequest>(m_client_info.id, m_client_info.name), protocol::ResponseCode::SIGNUP_SUCCESS);
 	const auto* singup_success_response = static_cast<protocol::SignupSuccessResponse*>(response.get());
 	m_client_info.id = singup_success_response->get_client_id();
+
 	INFO("Successfully signed up with id " + hex::encode(m_client_info.id));
 }
 
