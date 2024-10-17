@@ -3,6 +3,8 @@
 #include <memory>
 #include <string>
 
-using Socket = boost::asio::ip::tcp::socket;
+namespace boost_util {
+	using Socket = boost::asio::ip::tcp::socket;
 
-std::shared_ptr<Socket> connect(const std::string& ip, const uint32_t port);
+	std::shared_ptr<Socket> connect(const std::string& ip, const uint32_t port);
+};

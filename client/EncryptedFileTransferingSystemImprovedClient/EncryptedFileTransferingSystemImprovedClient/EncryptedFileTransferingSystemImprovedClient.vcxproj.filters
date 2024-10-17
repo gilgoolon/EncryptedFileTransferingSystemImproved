@@ -42,7 +42,7 @@
     <ClCompile Include="ServerCommunicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Configurator.cpp">
+    <ClCompile Include="Config\Configurator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Common\Boost.cpp">
@@ -111,10 +111,16 @@
     <ClCompile Include="Protocol\Protocol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClientInfo.cpp">
+    <ClCompile Include="Config\ClientInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Crypto\Rsa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Crypto\Aes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Config\TransferInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,7 +131,7 @@
     <ClInclude Include="Common\StringUtils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ClientInfo.hpp">
+    <ClInclude Include="Config\ClientInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\Buffer.hpp">
@@ -152,7 +158,7 @@
     <ClInclude Include="Common\Writers\Writer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Configurator.hpp">
+    <ClInclude Include="Config\Configurator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\Boost.hpp">
@@ -222,6 +228,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Crypto\Rsa.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypto\Aes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Config\TransferInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

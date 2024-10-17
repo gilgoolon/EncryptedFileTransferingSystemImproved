@@ -3,17 +3,19 @@
 #include "Common/Logging/Logger.hpp"
 #include "Common/Hex.hpp"
 #include "Crypto/Rsa.hpp"
+#include "Crypto/Aes.hpp"
 #include "Protocol/Requests/SignupRequest.hpp"
 #include "Protocol/Requests/ReconnectRequest.hpp"
 #include "Protocol/Protocol.hpp"
 #include "Protocol/Responses/SignupSuccessResponse.hpp"
 #include "Protocol/Requests/SendPublicKeyRequest.hpp"
 #include "Protocol/Responses/SendingAesKeyResponse.hpp"
+#include "Common/OsUtils.hpp"
+#include "Protocol/Requests/SendFileRequest.hpp"
 
-Client::Client(const ClientInfo client_info, std::unique_ptr<ServerCommunicator> server_communicator, std::filesystem::path file_to_transfer)
+Client::Client(const ClientInfo client_info, std::unique_ptr<ServerCommunicator> server_communicator)
 	: m_client_info(client_info)
 	, m_server_communicator(std::move(server_communicator))
-	, m_file_to_trasnfer(std::move(file_to_transfer))
 	, m_is_connected(false)
 {
 }
@@ -23,7 +25,22 @@ const ClientInfo& Client::get_client_info() const
 	return m_client_info;
 }
 
-bool Client::connect()
+void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
+{
+	INFO("Transferring File: " + file_to_trasnfer.string());
+	if (!m_is_connected) {
+		throw std::runtime_error("invalid state: connect before transfering a file");
+	}
+
+	const auto file_content = os_utils::read_binary_file(file_to_trasnfer);
+	const auto encrypted_content = crypto::aes::encrypt(file_content, m_aes_key);
+	m_server_communicator->send_and_receive(std::make_unique<protocol::SendFileRequest>(m_client_info.id, encrypted_content, file_content.size(), file_to_trasnfer.filename().string()));
+
+
+	INFO("Successfully transferred file");
+}
+
+void Client::connect()
 {
 	INFO("Connecting");
 	if (m_client_info.is_registered) {
@@ -34,17 +51,6 @@ bool Client::connect()
 	}
 	m_is_connected = true;
 	INFO("Successfully connected");
-	return m_client_info.is_registered;
-}
-
-void Client::run()
-{
-	INFO("Running");
-	if (!m_is_connected) {
-		throw std::runtime_error("invalid state: connect before running the client");
-	}
-
-	INFO("Successfully ran");
 }
 
 void Client::sign_up()

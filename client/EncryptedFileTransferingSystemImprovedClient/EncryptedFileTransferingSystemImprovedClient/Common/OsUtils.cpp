@@ -3,6 +3,23 @@
 
 #include "OsUtils.hpp"
 
+buffer::Buffer os_utils::read_binary_file(const std::filesystem::path& path)
+{
+    constexpr size_t SEEK_FILE_BEGINNING = 0;
+
+    std::ifstream file(path, std::ios::binary | std::ios::ate);
+    if (!file) {
+        throw std::runtime_error("Failed to open file");
+    }
+
+    const auto file_size = file.tellg();
+    file.seekg(SEEK_FILE_BEGINNING, std::ios::beg);
+
+    buffer::Buffer buff;
+    file.read(reinterpret_cast<char*>(buff.data()), file_size);
+    return buff;
+}
+
 std::string os_utils::read_text_file(const std::filesystem::path& path)
 {
     std::ifstream file(path);

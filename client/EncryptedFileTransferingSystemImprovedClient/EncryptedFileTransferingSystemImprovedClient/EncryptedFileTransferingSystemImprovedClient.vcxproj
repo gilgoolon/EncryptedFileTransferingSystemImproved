@@ -137,18 +137,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClientInfo.cpp" />
+    <ClCompile Include="Config\ClientInfo.cpp" />
     <ClCompile Include="Common\Autos\AutoLock.cpp" />
     <ClCompile Include="Common\Base64.cpp" />
     <ClCompile Include="Common\Boost.cpp" />
     <ClCompile Include="Common\Buffer.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Common\Hex.cpp" />
-    <ClCompile Include="Configurator.cpp" />
+    <ClCompile Include="Config\Configurator.cpp" />
     <ClCompile Include="Common\OsUtils.cpp" />
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
     <ClCompile Include="Common\Logging\Logger.cpp" />
+    <ClCompile Include="Crypto\Aes.cpp" />
     <ClCompile Include="Crypto\Rsa.cpp" />
+    <ClCompile Include="Config\TransferInfo.cpp" />
     <ClCompile Include="Protocol\Protocol.cpp" />
     <ClCompile Include="Protocol\Requests\CorrectCrcRequest.cpp" />
     <ClCompile Include="Protocol\Requests\IncorrectCrcDoneRequest.cpp" />
@@ -178,14 +180,16 @@
     <ClInclude Include="Common\Boost.hpp" />
     <ClInclude Include="Common\Buffer.hpp" />
     <ClInclude Include="Client.hpp" />
-    <ClInclude Include="ClientInfo.hpp" />
+    <ClInclude Include="Config\ClientInfo.hpp" />
     <ClInclude Include="Common\Hex.hpp" />
-    <ClInclude Include="Configurator.hpp" />
+    <ClInclude Include="Config\Configurator.hpp" />
     <ClInclude Include="Common\OsUtils.hpp" />
     <ClInclude Include="Common\Readers\Reader.hpp" />
     <ClInclude Include="Common\Readers\SocketReader.hpp" />
     <ClInclude Include="Common\Logging\Logger.hpp" />
+    <ClInclude Include="Crypto\Aes.hpp" />
     <ClInclude Include="Crypto\Rsa.hpp" />
+    <ClInclude Include="Config\TransferInfo.hpp" />
     <ClInclude Include="Protocol\Protocol.hpp" />
     <ClInclude Include="Protocol\Requests\CorrectCrcRequest.hpp" />
     <ClInclude Include="Protocol\Requests\IncorrectCrcDoneRequest.hpp" />

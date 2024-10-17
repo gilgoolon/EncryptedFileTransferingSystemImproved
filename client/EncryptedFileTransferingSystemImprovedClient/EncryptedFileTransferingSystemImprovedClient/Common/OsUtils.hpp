@@ -3,7 +3,11 @@
 #include <memory>
 #include <filesystem>
 
+#include "Buffer.hpp"
+
 namespace os_utils{
+
+	buffer::Buffer read_binary_file(const std::filesystem::path& path);
 
 	std::string read_text_file(const std::filesystem::path& path);
 	
