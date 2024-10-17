@@ -61,10 +61,10 @@ class ClientHandler:
         checksum = crc.calculate(file_content)
         response = GotFileWithCrcResponse(self._client_id, len(send_file_payload.get_content()),
                                           send_file_payload.get_filename(), checksum)
-        request = self._send_and_receive(response)
-        if request.get_code() is RequestCode.CORRECT_CRC:
+        confirmation_request = self._send_and_receive(response)
+        if confirmation_request.get_code() is RequestCode.CORRECT_CRC:
             return file_content
-        if request.get_code() is RequestCode.INCORRECT_CRC_DONE:
+        if confirmation_request.get_code() is RequestCode.INCORRECT_CRC_DONE:
             raise exceptions.InvalidChecksumNoMoreException("Got invalid checksum and client is done sending")
         raise exceptions.InvalidChecksumException()
 

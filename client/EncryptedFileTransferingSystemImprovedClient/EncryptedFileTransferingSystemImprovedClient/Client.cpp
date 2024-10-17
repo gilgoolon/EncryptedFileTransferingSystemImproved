@@ -47,7 +47,7 @@ void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
 		LOG_INFO("Try " + std::to_string(i + 1) + ": sending file");
 		auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::SendFileRequest>(m_client_info.id, encrypted_content, file_content.size(), file_to_trasnfer.filename().string()), protocol::ResponseCode::GOT_FILE_WITH_CRC);
 		if (static_cast<protocol::GotFileWithCrcResponse*>(response.get())->get_checksum() == file_checksum) {
-			m_server_communicator->send_and_receive(std::make_unique<protocol::IncorrectCrcSendingAgainRequest>(m_client_info.id, file_to_trasnfer.filename().string()), protocol::ResponseCode::OK_CONFIRMATION);
+			m_server_communicator->send_and_receive(std::make_unique<protocol::CorrectCrcRequest>(m_client_info.id, file_to_trasnfer.filename().string()), protocol::ResponseCode::OK_CONFIRMATION);
 			LOG_INFO("Successfully transferred file");
 			return;
 		}
