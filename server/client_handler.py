@@ -6,7 +6,7 @@ import exceptions
 from crypto import aes, rsa, crc
 from protocol.requests import RequestCode, Request, SendPublicKeyPayload, SendFilePayload
 from protocol.responses import Response, SignupSuccessResponse, CLIENT_ID_SIZE, SendingAesKeyResponse, \
-    ReconnectSuccessSendingAesResponse, GotFileWithCrcResponse
+    ReconnectSuccessSendingAesResponse, GotFileWithCrcResponse, OkConfirmationResponse
 
 
 class ClientHandler:
@@ -63,6 +63,7 @@ class ClientHandler:
                                           send_file_payload.get_filename(), checksum)
         confirmation_request = self._send_and_receive(response)
         if confirmation_request.get_code() is RequestCode.CORRECT_CRC:
+            self._send_response(OkConfirmationResponse(self._client_id))
             return file_content
         if confirmation_request.get_code() is RequestCode.INCORRECT_CRC_DONE:
             raise exceptions.InvalidChecksumNoMoreException("Got invalid checksum and client is done sending")
