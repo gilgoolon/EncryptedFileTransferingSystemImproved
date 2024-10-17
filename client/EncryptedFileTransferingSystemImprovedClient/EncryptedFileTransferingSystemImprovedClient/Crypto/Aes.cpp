@@ -5,16 +5,18 @@
 #include <cryptopp/filters.h>
 
 #include "Aes.hpp"
+#include "../Common/Logging/Logger.hpp"
 
 buffer::Buffer crypto::aes::encrypt(const buffer::Buffer& data, const buffer::Buffer& aes_key)
 {
+    static constexpr size_t NUM_BITS_IN_BYTE = 8;
     if (aes_key.size() != DEFAULT_AES_KEY_SIZE) {
         throw std::runtime_error("invalid AES key length");
     }
 
     buffer::Byte iv[CryptoPP::AES::BLOCKSIZE]{ IV_UNINITIALIZED_VALUE };
 
-    CryptoPP::CFB_Mode<CryptoPP::AES>::Encryption encryption;
+    CryptoPP::CBC_Mode<CryptoPP::AES>::Encryption encryption;
     encryption.SetKeyWithIV(aes_key.data(), aes_key.size(), iv);
 
     buffer::Buffer ciphertext;

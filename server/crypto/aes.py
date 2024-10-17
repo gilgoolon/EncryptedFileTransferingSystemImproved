@@ -4,7 +4,7 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 
 
-DEFAULT_KEY_SIZE = 8
+DEFAULT_KEY_SIZE = 256 // 8
 
 
 def decrypt(data: bytes, key: bytes) -> bytes:
