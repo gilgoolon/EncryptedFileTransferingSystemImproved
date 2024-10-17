@@ -26,7 +26,7 @@ void Client::run()
 
 void Client::signup()
 {
-	protocol::SignupRequest signup_request(m_client_info.id, m_client_info.name);
+	auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::SignupRequest>(m_client_info.id, m_client_info.name), protocol::ResponseCode::SIGNUP_SUCCESS);
 }
 
 void Client::reconnect()

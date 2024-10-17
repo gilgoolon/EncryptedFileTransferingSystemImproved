@@ -15,18 +15,18 @@
 void protocol::Response::deserialize(const buffer::Buffer& data)
 {
 	m_version = deserialize_uint<uint8_t>(data.begin());
-	m_response_code = ResponseCode(deserialize_uint<uint16_t>(data.begin() + sizeof m_version));
-	m_payload_size = deserialize_uint<uint32_t>(data.begin() + sizeof m_version + sizeof m_response_code);
+	m_code = ResponseCode(deserialize_uint<uint16_t>(data.begin() + sizeof m_version));
+	m_payload_size = deserialize_uint<uint32_t>(data.begin() + sizeof m_version + sizeof m_code);
 }
 
 size_t protocol::Response::size()
 {
-	return sizeof(m_version) + sizeof(m_response_code) + sizeof(m_payload_size);
+	return sizeof(m_version) + sizeof(m_code) + sizeof(m_payload_size);
 }
 
-protocol::ResponseCode protocol::Response::get_response_code() const
+protocol::ResponseCode protocol::Response::get_code() const
 {
-	return m_response_code;
+	return m_code;
 }
 
 uint32_t protocol::Response::get_payload_size() const
@@ -40,7 +40,7 @@ std::unique_ptr<protocol::Response> protocol::make_response(const buffer::Buffer
 	Response header;
 	header.deserialize(data);
 	std::unique_ptr<Response> response;
-	switch (header.get_response_code()) {
+	switch (header.get_code()) {
 	case ResponseCode::SIGNUP_SUCCESS:
 		response = std::make_unique<protocol::SignupSuccessResponse>();
 		response->deserialize(data);
@@ -70,6 +70,6 @@ std::unique_ptr<protocol::Response> protocol::make_response(const buffer::Buffer
 		response->deserialize(data);
 		return std::move(response);
 	default:
-		throw std::invalid_argument("Invalid response code " + std::to_string(static_cast<uint16_t>(header.get_response_code())) + " when parsing a response in protocol::make_response()");
+		throw std::invalid_argument("Invalid response code " + std::to_string(static_cast<uint16_t>(header.get_code())) + " when parsing a response in protocol::make_response()");
 	}
 }
