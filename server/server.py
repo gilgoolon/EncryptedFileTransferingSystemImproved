@@ -1,11 +1,7 @@
 import socket
 import threading
-from typing import Optional
 
-import exceptions
-import protocol.requests
 from client_handler import ClientHandler
-from protocol import requests
 from protocol.responses import Response, ResponseCode
 
 

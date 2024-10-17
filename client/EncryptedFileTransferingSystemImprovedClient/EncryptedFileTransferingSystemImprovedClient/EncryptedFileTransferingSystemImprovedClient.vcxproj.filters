@@ -123,6 +123,9 @@
     <ClCompile Include="Crypto\Crc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Protocol\Responses\Deserializable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\OsUtils.hpp">

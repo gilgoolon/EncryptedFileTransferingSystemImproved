@@ -81,7 +81,8 @@ class ClientHandler:
         return request
 
     def _send_response(self, response: Response) -> None:
-        self._client_socket.send(response.serialize())
+        serialized = response.serialize()
+        self._client_socket.send(serialized)
 
     def _send_and_receive(self, response: Response, expected_code: Optional[RequestCode] = None) -> Request:
         self._send_response(response)

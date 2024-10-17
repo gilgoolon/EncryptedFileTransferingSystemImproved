@@ -5,9 +5,9 @@
 
 void protocol::Response::deserialize(const buffer::Buffer& data)
 {
-	m_version = deserialize_uint<uint8_t>(data.begin());
-	m_code = ResponseCode(deserialize_uint<uint16_t>(data.begin() + sizeof m_version));
-	m_payload_size = deserialize_uint<uint32_t>(data.begin() + sizeof m_version + sizeof m_code);
+	m_version = deserialize_uint8(data.begin());
+	m_code = ResponseCode(deserialize_uint16(data.begin() + sizeof m_version));
+	m_payload_size = deserialize_uint32(data.begin() + sizeof m_version + sizeof m_code);
 }
 
 size_t protocol::Response::size()
