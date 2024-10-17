@@ -20,6 +20,7 @@ private:
 	std::unique_ptr<ServerCommunicator> m_server_communicator;
 	std::filesystem::path m_file_to_trasnfer;
 	bool m_is_connected;
+	buffer::Buffer m_aes_key;
 
 	void sign_up();
 

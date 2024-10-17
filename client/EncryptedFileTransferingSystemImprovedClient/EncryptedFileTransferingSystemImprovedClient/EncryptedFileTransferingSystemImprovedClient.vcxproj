@@ -140,6 +140,7 @@
     <ClCompile Include="Common\OsUtils.cpp" />
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
     <ClCompile Include="Common\Logging\Logger.cpp" />
+    <ClCompile Include="Crypto\Rsa.cpp" />
     <ClCompile Include="Protocol\Protocol.cpp" />
     <ClCompile Include="Protocol\Requests\CorrectCrcRequest.cpp" />
     <ClCompile Include="Protocol\Requests\IncorrectCrcDoneRequest.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Common\Readers\Reader.hpp" />
     <ClInclude Include="Common\Readers\SocketReader.hpp" />
     <ClInclude Include="Common\Logging\Logger.hpp" />
+    <ClInclude Include="Crypto\Rsa.hpp" />
     <ClInclude Include="Protocol\Protocol.hpp" />
     <ClInclude Include="Protocol\Requests\CorrectCrcRequest.hpp" />
     <ClInclude Include="Protocol\Requests\IncorrectCrcDoneRequest.hpp" />
