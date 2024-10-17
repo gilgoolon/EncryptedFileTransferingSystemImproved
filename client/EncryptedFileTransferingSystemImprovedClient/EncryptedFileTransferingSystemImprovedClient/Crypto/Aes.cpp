@@ -13,7 +13,7 @@ buffer::Buffer crypto::aes::encrypt(const buffer::Buffer& data, const buffer::Bu
         throw std::runtime_error("invalid AES key length");
     }
 
-    buffer::Byte iv[CryptoPP::AES::BLOCKSIZE]{ IV_UNINITIALIZED_VALUE };
+    buffer::Byte iv[CryptoPP::AES::BLOCKSIZE] = { IV_UNINITIALIZED_VALUE };
     CryptoPP::CBC_Mode<CryptoPP::AES>::Encryption e;
     e.SetKeyWithIV(aes_key.data(), aes_key.size(), iv);
 

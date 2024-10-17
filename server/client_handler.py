@@ -56,7 +56,7 @@ class ClientHandler:
     def _try_receive_file(self) -> Optional[bytes]:
         request = self._receive_request(RequestCode.SEND_FILE)
         send_file_payload = SendFilePayload(request.get_payload())
-        file_content = aes.decrypt(send_file_payload.get_content()[:send_file_payload.get_content_size()],
+        file_content = aes.decrypt(send_file_payload.get_content(),
                                    self._aes_key)
         checksum = crc.calculate(file_content)
         response = GotFileWithCrcResponse(self._client_id, len(send_file_payload.get_content()),
