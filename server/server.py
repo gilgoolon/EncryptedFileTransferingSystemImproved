@@ -1,5 +1,11 @@
 import socket
 import threading
+from typing import Optional
+
+import exceptions
+import protocol.requests
+from client_handler import ClientHandler
+from protocol import requests
 
 
 class Server:
@@ -11,9 +17,15 @@ class Server:
         self._server_socket.listen(max_backlog)
 
     def start(self) -> None:
-        client_address, client_socket = self._server_socket.accept()
-        print(f"Client connected from address: {client_address}")
-        threading.Thread(target=self.handle_client, args=(client_socket, )).start()
+        while True:
+            client_socket, client_address = self._server_socket.accept()
+            print(f"Client connected from address: {client_address}")
+            threading.Thread(target=self.handle_client, args=(client_socket, )).start()
 
-    def handle_client(self, client_socket: socket.socket) -> None:
-        pass
+    @staticmethod
+    def handle_client(client_socket: socket.socket) -> None:
+        try:
+            handler = ClientHandler(client_socket)
+            handler.handle()
+        except Exception as e:
+            print(f"Server error when handling client: {e}")
