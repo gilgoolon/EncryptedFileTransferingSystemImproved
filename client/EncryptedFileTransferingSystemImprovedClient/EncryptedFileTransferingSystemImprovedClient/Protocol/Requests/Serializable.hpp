@@ -1,3 +1,4 @@
+#pragma once
 #include "../../Common/Buffer.hpp"
 
 class ISerializable {

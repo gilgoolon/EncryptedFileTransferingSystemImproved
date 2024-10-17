@@ -146,6 +146,13 @@
     <ClCompile Include="Protocol\Requests\SendPublicKeyRequest.cpp" />
     <ClCompile Include="Protocol\Requests\Serializable.cpp" />
     <ClCompile Include="Protocol\Requests\SignupRequest.cpp" />
+    <ClCompile Include="Protocol\Responses\Deserializable.hpp" />
+    <ClCompile Include="Protocol\Responses\GotFileWithCrcResponse.cpp" />
+    <ClCompile Include="Protocol\Responses\GotFileWithCrcResponse.hpp" />
+    <ClCompile Include="Protocol\Responses\ReconnectFailedResponse.hpp" />
+    <ClCompile Include="Protocol\Responses\Response.cpp" />
+    <ClCompile Include="Protocol\Responses\SendingAesKeyResponse.cpp" />
+    <ClCompile Include="Protocol\Responses\SignupSuccessResponse.cpp" />
     <ClCompile Include="ServerCommunicator.cpp" />
     <ClCompile Include="Common\StringUtils.cpp" />
     <ClCompile Include="Common\Writers\ConsoleWriter.cpp" />
@@ -172,6 +179,13 @@
     <ClInclude Include="Protocol\Requests\SendPublicKeyRequest.hpp" />
     <ClInclude Include="Protocol\Requests\Serializable.hpp" />
     <ClInclude Include="Protocol\Requests\SignupRequest.hpp" />
+    <ClInclude Include="Protocol\Responses\OkConfirmationResponse.hpp" />
+    <ClInclude Include="Protocol\Responses\ReconnectSuccessSendingAesKeyResponse.hpp" />
+    <ClInclude Include="Protocol\Responses\Response.hpp" />
+    <ClInclude Include="Protocol\Responses\SendingAesKeyResponse.hpp" />
+    <ClInclude Include="Protocol\Responses\ServerErrorResponse.hpp" />
+    <ClInclude Include="Protocol\Responses\SignupFailedResponse.hpp" />
+    <ClInclude Include="Protocol\Responses\SignupSuccessResponse.hpp" />
     <ClInclude Include="ServerCommunicator.hpp" />
     <ClInclude Include="Common\StringUtils.hpp" />
     <ClInclude Include="Common\Writers\ConsoleWriter.hpp" />
