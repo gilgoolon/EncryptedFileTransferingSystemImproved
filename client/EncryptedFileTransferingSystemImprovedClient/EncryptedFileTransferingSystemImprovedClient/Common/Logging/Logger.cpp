@@ -1,9 +1,9 @@
 #include "Logger.hpp"
 
 static const std::unordered_map<logging::LogLevel, std::string> log_level_to_string = {
-    { logging::LogLevel::INFO, "INFO" },
-    { logging::LogLevel::WARNING, "WARNING" },
-    { logging::LogLevel::ERROR, "ERROR" }
+    { logging::LogLevel::INFO_, "INFO" },
+    { logging::LogLevel::WARNING_, "WARNING" },
+    { logging::LogLevel::ERROR_, "ERROR" }
 };
 
 logging::Logger::Logger()

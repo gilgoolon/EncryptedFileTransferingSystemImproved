@@ -12,6 +12,6 @@ autos::AutoLock::~AutoLock()
     try {
         m_mutex->unlock();
     } catch (const std::exception& ex) {
-        WARNING(ex.what())
+        LOG_WARNING(ex.what())
     }
 }

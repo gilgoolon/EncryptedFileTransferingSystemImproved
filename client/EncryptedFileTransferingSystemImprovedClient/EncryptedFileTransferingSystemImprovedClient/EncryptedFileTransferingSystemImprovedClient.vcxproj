@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Logging\Logger.cpp" />
     <ClCompile Include="Config\ClientInfo.cpp" />
     <ClCompile Include="Common\Autos\AutoLock.cpp" />
     <ClCompile Include="Common\Base64.cpp" />
@@ -147,7 +148,6 @@
     <ClCompile Include="Config\Configurator.cpp" />
     <ClCompile Include="Common\OsUtils.cpp" />
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
-    <ClCompile Include="Common\Logging\Logger.cpp" />
     <ClCompile Include="Crypto\Aes.cpp" />
     <ClCompile Include="Crypto\Crc.cpp" />
     <ClCompile Include="Crypto\Rsa.cpp" />

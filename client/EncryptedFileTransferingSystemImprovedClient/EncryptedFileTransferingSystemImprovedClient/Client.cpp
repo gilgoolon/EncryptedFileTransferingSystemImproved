@@ -35,7 +35,7 @@ const ClientInfo& Client::get_client_info() const
 
 void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
 {
-	INFO("Transferring File: " + file_to_trasnfer.string());
+	LOG_INFO("Transferring File: " + file_to_trasnfer.string());
 	if (!m_is_connected) {
 		throw std::runtime_error("invalid state: connect before transfering a file");
 	}
@@ -47,10 +47,10 @@ void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
 		auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::SendFileRequest>(m_client_info.id, encrypted_content, file_content.size(), file_to_trasnfer.filename().string()), protocol::ResponseCode::GOT_FILE_WITH_CRC);
 		if (static_cast<protocol::GotFileWithCrcResponse*>(response.get())->get_checksum() == file_checksum) {
 			m_server_communicator->send_and_receive(std::make_unique<protocol::IncorrectCrcSendingAgainRequest>(m_client_info.id, file_to_trasnfer.filename().string()), protocol::ResponseCode::OK_CONFIRMATION);
-			INFO("Successfully transferred file");
+			LOG_INFO("Successfully transferred file");
 			return;
 		}
-		INFO("Try " + std::to_string(i + 1) + ": failed to send file.")
+		LOG_INFO("Try " + std::to_string(i + 1) + ": failed to send file.")
 	}
 	m_server_communicator->send_and_receive(std::make_unique<protocol::IncorrectCrcDoneRequest>(m_client_info.id, file_to_trasnfer.filename().string()), protocol::ResponseCode::OK_CONFIRMATION);
 	throw std::runtime_error("Failed to send file " + std::to_string(MAX_SEND_FILES_RETRIES) + " times");
@@ -58,7 +58,7 @@ void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
 
 void Client::connect()
 {
-	INFO("Connecting");
+	LOG_INFO("Connecting");
 	if (m_client_info.is_registered) {
 		reconnect();
 	}
@@ -66,16 +66,16 @@ void Client::connect()
 		sign_up();
 	}
 	m_is_connected = true;
-	INFO("Successfully connected");
+	LOG_INFO("Successfully connected");
 }
 
 void Client::sign_up()
 {
-	INFO("Not found reconnection details, signing up...");
+	LOG_INFO("Not found reconnection details, signing up...");
 	auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::SignupRequest>(m_client_info.name), protocol::ResponseCode::SIGNUP_SUCCESS);
 	m_client_info.id = static_cast<protocol::SignupSuccessResponse*>(response.get())->get_client_id();
 
-	INFO("SignSuccess received, client id: " + hex::encode(m_client_info.id));
+	LOG_INFO("SignSuccess received, client id: " + hex::encode(m_client_info.id));
 
 	buffer::Buffer public_key;
 	crypto::rsa::generate_key_pair(m_client_info.private_key, public_key);
@@ -83,17 +83,17 @@ void Client::sign_up()
 	response = m_server_communicator->send_and_receive(std::make_unique<protocol::SendPublicKeyRequest>(m_client_info.id, m_client_info.name, public_key), protocol::ResponseCode::SENDING_AES_KEY);
 	m_aes_key = static_cast<protocol::SendingAesKeyResponse*>(response.get())->get_aes_key();
 
-	INFO("SendingAesKey received");
+	LOG_INFO("SendingAesKey received");
 
 	m_aes_key = crypto::rsa::decrypt(static_cast<protocol::SendingAesKeyResponse*>(response.get())->get_aes_key(), m_client_info.private_key);
-	INFO("Successfully signed up with id " + hex::encode(m_client_info.id));
+	LOG_INFO("Successfully signed up with id " + hex::encode(m_client_info.id));
 }
 
 void Client::reconnect()
 {
-	INFO("Already signed up with id " + hex::encode(m_client_info.id) + ", reconnecting...");
+	LOG_INFO("Already signed up with id " + hex::encode(m_client_info.id) + ", reconnecting...");
 	auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::ReconnectRequest>(m_client_info.id, m_client_info.name), protocol::ResponseCode::RECONNECT_SUCCESS_SENDING_AES);
 	
 	m_aes_key = crypto::rsa::decrypt(static_cast<protocol::SendingAesKeyResponse*>(response.get())->get_aes_key(), m_client_info.private_key);
-	INFO("Successfully reconnected");
+	LOG_INFO("Successfully reconnected");
 }
