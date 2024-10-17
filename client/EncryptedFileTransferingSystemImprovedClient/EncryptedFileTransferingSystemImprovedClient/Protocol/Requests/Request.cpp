@@ -1,7 +1,7 @@
 
 #include "Request.hpp"
 
-protocol::Request::Request(const buffer::Buffer& client_id, const ClientRequestCode request_code, const uint32_t payload_size)
+protocol::Request::Request(const buffer::Buffer& client_id, const RequestCode request_code, const uint32_t payload_size)
 	: m_client_id(client_id)
 	, m_request_code(request_code)
 	, m_payload_size(payload_size)

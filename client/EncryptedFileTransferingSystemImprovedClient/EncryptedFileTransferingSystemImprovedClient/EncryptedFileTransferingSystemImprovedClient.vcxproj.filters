@@ -54,10 +54,31 @@
     <ClCompile Include="Common\Hex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Protocol\RequestHeader.cpp">
+    <ClCompile Include="Protocol\Requests\Serializable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Protocol\Serializable.cpp">
+    <ClCompile Include="Protocol\Requests\Request.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\SignupRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\SendPublicKeyRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\ReconnectRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\SendFileRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\CorrectCrcRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\IncorrectCrcSendingAgainRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol\Requests\IncorrectCrcDoneRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,10 +128,31 @@
     <ClInclude Include="Common\Hex.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol\RequestHeader.hpp">
+    <ClInclude Include="Protocol\Requests\Serializable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol\Serializable.hpp">
+    <ClInclude Include="Protocol\Requests\Request.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\SignupRequest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\SendPublicKeyRequest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\ReconnectRequest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\SendFileRequest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\CorrectCrcRequest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\IncorrectCrcSendingAgainRequest.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\Requests\IncorrectCrcDoneRequest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

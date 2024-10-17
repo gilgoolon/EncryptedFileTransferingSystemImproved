@@ -1,4 +1,4 @@
-#include "../Common/Buffer.hpp"
+#include "../../Common/Buffer.hpp"
 #include "Serializable.hpp"
 
 namespace protocol {
