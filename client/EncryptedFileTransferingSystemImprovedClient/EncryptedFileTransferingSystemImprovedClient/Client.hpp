@@ -7,7 +7,7 @@ using config::ClientInfo;
 
 class Client final {
 public:
-	explicit Client(const ClientInfo client_info, std::unique_ptr<ServerCommunicator> server_communicator);
+	explicit Client(const ClientInfo& client_info, std::unique_ptr<ServerCommunicator> server_communicator);
 
 	const ClientInfo& get_client_info() const;
 

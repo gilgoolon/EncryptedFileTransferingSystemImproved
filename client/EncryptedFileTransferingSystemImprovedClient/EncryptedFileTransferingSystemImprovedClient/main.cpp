@@ -11,6 +11,7 @@ int main()
 {
 	const auto transfer_info = config::make_transfer_info(TRANSFER_INFO_PATH);
 	ClientInfo client_info;
+	client_info.name = transfer_info.client_name;
 	if (std::filesystem::exists(ME_INFO_PATH)) {
 		client_info = config::make_client_info(ME_INFO_PATH);
 	}
@@ -21,6 +22,7 @@ int main()
 	}
 	catch (const std::exception& ex) {
 		std::cout << "Failed to configure client. Error: " << ex.what() << std::endl;
+		return EXIT_FAILURE;
 	}
 	try {
 		client->connect();
@@ -31,12 +33,14 @@ int main()
 	}
 	catch (const std::exception& ex) {
 		std::cout << "Error while connecting to server: " << ex.what() << std::endl;
+		return EXIT_FAILURE;
 	}
 	try {
 		client->transfer_file(transfer_info.file_to_transfer);
 	}
 	catch (const std::exception& ex) {
 		std::cout << "Error while transferring file: " << ex.what() << std::endl;
+		return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;
 }

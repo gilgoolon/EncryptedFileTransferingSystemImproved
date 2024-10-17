@@ -21,7 +21,7 @@
 
 static constexpr size_t MAX_SEND_FILES_RETRIES = 4;
 
-Client::Client(const ClientInfo client_info, std::unique_ptr<ServerCommunicator> server_communicator)
+Client::Client(const ClientInfo& client_info, std::unique_ptr<ServerCommunicator> server_communicator)
 	: m_client_info(client_info)
 	, m_server_communicator(std::move(server_communicator))
 	, m_is_connected(false)
