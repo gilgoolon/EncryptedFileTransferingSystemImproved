@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Autos\AutoLock.cpp" />
     <ClCompile Include="Common\Base64.cpp" />
     <ClCompile Include="Common\Boost.cpp" />
     <ClCompile Include="Common\Buffer.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Configurator.cpp" />
     <ClCompile Include="Common\OsUtils.cpp" />
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
+    <ClCompile Include="Common\Logging\Logger.cpp" />
     <ClCompile Include="Protocol\Requests\CorrectCrcRequest.cpp" />
     <ClCompile Include="Protocol\Requests\IncorrectCrcDoneRequest.cpp" />
     <ClCompile Include="Protocol\Requests\IncorrectCrcSendingAgainRequest.cpp" />
@@ -160,6 +162,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\Autos\AutoLock.hpp" />
     <ClInclude Include="Common\Base64.hpp" />
     <ClInclude Include="Common\Boost.hpp" />
     <ClInclude Include="Common\Buffer.hpp" />
@@ -170,6 +173,7 @@
     <ClInclude Include="Common\OsUtils.hpp" />
     <ClInclude Include="Common\Readers\Reader.hpp" />
     <ClInclude Include="Common\Readers\SocketReader.hpp" />
+    <ClInclude Include="Common\Logging\Logger.hpp" />
     <ClInclude Include="Protocol\Requests\CorrectCrcRequest.hpp" />
     <ClInclude Include="Protocol\Requests\IncorrectCrcDoneRequest.hpp" />
     <ClInclude Include="Protocol\Requests\IncorrectCrcSendingAgainRequest.hpp" />

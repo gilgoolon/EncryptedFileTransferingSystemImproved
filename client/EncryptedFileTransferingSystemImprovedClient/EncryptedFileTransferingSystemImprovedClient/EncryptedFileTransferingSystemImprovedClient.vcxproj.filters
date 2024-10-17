@@ -102,6 +102,12 @@
     <ClCompile Include="Protocol\Responses\ReconnectFailedResponse.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Common\Logging\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Autos\AutoLock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\OsUtils.hpp">
@@ -195,6 +201,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Protocol\Responses\ServerErrorResponse.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Logging\Logger.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Autos\AutoLock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
