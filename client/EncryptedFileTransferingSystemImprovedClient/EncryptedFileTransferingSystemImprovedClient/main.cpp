@@ -2,6 +2,7 @@
 
 #include "Configurator.hpp"
 #include <iostream>
+#include "Common/OsUtils.hpp"
 
 std::filesystem::path TRANSFER_INFO_PATH = "transfer.info";
 std::filesystem::path ME_INFO_PATH = "me.info";
@@ -16,6 +17,9 @@ int main()
 		std::cout << "Failed to configure client. Error: " << ex.what() << std::endl;
 	}
 	try {
+		if (!client->connect()) {
+			os_utils::write_text_file(TRANSFER_INFO_PATH, client->get_client_info().serialize());
+		}
 		client->run();
 	}
 	catch (const std::exception& ex) {

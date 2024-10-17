@@ -9,4 +9,6 @@ struct ClientInfo {
 	buffer::Buffer id;
 	buffer::Buffer private_key;
 	bool is_registered = false;
+
+	std::string serialize() const;
 };

@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClientInfo.cpp" />
     <ClCompile Include="Common\Autos\AutoLock.cpp" />
     <ClCompile Include="Common\Base64.cpp" />
     <ClCompile Include="Common\Boost.cpp" />
