@@ -18,3 +18,10 @@ std::vector<std::string> string_utils::split(const std::string& string, const ch
     }
     return seglist;
 }
+
+std::string string_utils::extend(const std::string& str, const size_t new_length)
+{
+    std::string working_string = str;
+    working_string.resize(new_length);
+    return working_string;
+}
