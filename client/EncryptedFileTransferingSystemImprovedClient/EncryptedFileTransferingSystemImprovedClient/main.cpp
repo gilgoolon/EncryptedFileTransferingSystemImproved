@@ -18,7 +18,7 @@ int main()
 
 	std::unique_ptr<Client> client;
 	try {
-		config::make_client(client_info, transfer_info);
+		client = config::make_client(client_info, transfer_info);
 	}
 	catch (const std::exception& ex) {
 		std::cout << "Failed to configure client. Error: " << ex.what() << std::endl;
