@@ -26,7 +26,7 @@ class Response(ISerializable):
         self._payload_size = payload_size
 
     def serialize(self) -> bytes:
-        return struct.pack("<BHI", VERSION, self._code, self._payload_size)
+        return struct.pack("<BHI", VERSION, self._code.value, self._payload_size)
 
 
 class SignupSuccessResponse(Response):

@@ -39,7 +39,8 @@ class ClientHandler:
             self._send_response(ReconnectSuccessSendingAesResponse(self._client_id,
                                                                    rsa.encrypt(generated_aes_key, public_key)))
         else:
-            raise exceptions.InvalidStateException("Expected a reconnect or signup request when connecting")
+            raise exceptions.InvalidStateException(f"Expected a reconnect or signup request when connecting, "
+                                                   f"got {request.get_code()}")
 
     def _handle_send_file(self) -> None:
         content = bytes()

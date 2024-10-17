@@ -6,6 +6,7 @@ import exceptions
 import protocol.requests
 from client_handler import ClientHandler
 from protocol import requests
+from protocol.responses import Response, ResponseCode
 
 
 class Server:
@@ -19,7 +20,7 @@ class Server:
     def start(self) -> None:
         while True:
             client_socket, client_address = self._server_socket.accept()
-            print(f"Client connected from address: {client_address}")
+            print(f"Client connected from: {client_address}")
             threading.Thread(target=self.handle_client, args=(client_socket, )).start()
 
     @staticmethod
@@ -28,4 +29,5 @@ class Server:
             handler = ClientHandler(client_socket)
             handler.handle()
         except Exception as e:
+            client_socket.send(Response(ResponseCode.SERVER_ERROR, 0).serialize())
             print(f"Server error when handling client: {e}")
