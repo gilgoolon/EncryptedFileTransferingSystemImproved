@@ -28,16 +28,16 @@ class ClientHandler:
                                                              RequestCode.SEND_PUBLIC_KEY)
             payload = SendPublicKeyPayload(send_public_key_request.get_payload())
             self._public_key = payload.get_public_key()
-            generated_aes_key = aes.generate_key()
+            self._aes_key = aes.generate_key()
             self._send_response(SendingAesKeyResponse(self._client_id,
-                                                      rsa.encrypt(generated_aes_key, self._public_key)))
+                                                      rsa.encrypt(self._aes_key, self._public_key)))
 
         elif request.get_code() is RequestCode.RECONNECT:
             raise NotImplemented
             public_key = ...  # fetch from db
-            generated_aes_key = aes.generate_key()
+            self._aes_key = aes.generate_key()
             self._send_response(ReconnectSuccessSendingAesResponse(self._client_id,
-                                                                   rsa.encrypt(generated_aes_key, public_key)))
+                                                                   rsa.encrypt(self._aes_key, public_key)))
         else:
             raise exceptions.InvalidStateException(f"Expected a reconnect or signup request when connecting, "
                                                    f"got {request.get_code()}")
@@ -48,7 +48,7 @@ class ClientHandler:
             try:
                 content = self._try_receive_file()
                 break
-            except ValueError:
+            except exceptions.InvalidChecksumException:
                 continue
         # save file in db
         print(f"Saving file in db... Size: {len(content)} bytes")
@@ -56,21 +56,17 @@ class ClientHandler:
     def _try_receive_file(self) -> Optional[bytes]:
         request = self._receive_request(RequestCode.SEND_FILE)
         send_file_payload = SendFilePayload(request.get_payload())
-        file_content = aes.decrypt(send_file_payload.get_content(), self._aes_key)
+        file_content = aes.decrypt(send_file_payload.get_content()[:send_file_payload.get_content_size()],
+                                   self._aes_key)
         checksum = crc.calculate(file_content)
-        request = self._send_and_receive(
-            GotFileWithCrcResponse(
-                self._client_id,
-                len(send_file_payload.get_content()),
-                send_file_payload.get_filename(),
-                checksum
-            )
-        )
+        response = GotFileWithCrcResponse(self._client_id, len(send_file_payload.get_content()),
+                                          send_file_payload.get_filename(), checksum)
+        request = self._send_and_receive(response)
         if request.get_code() is RequestCode.CORRECT_CRC:
             return file_content
         if request.get_code() is RequestCode.INCORRECT_CRC_DONE:
-            raise RuntimeError("Got invalid checksum and client is done sending")
-        raise ValueError("Got invalid checksum")
+            raise exceptions.InvalidChecksumNoMoreException("Got invalid checksum and client is done sending")
+        raise exceptions.InvalidChecksumException()
 
     def _receive_request(self, expected_request: Optional[RequestCode] = None) -> Request:
         header_data = self._client_socket.recv(Request.size())

@@ -3,7 +3,7 @@
 #include "../../Common/StringUtils.hpp"
 
 protocol::SendFileRequest::SendFileRequest(const buffer::Buffer& client_id, const buffer::Buffer& content, const uint32_t original_size, const std::string& filename)
-	: Request(client_id, protocol::RequestCode::SEND_FILE, sizeof(uint32_t) + sizeof(original_size) + sizeof(uint16_t) + sizeof(uint16_t) + filename.size() + content.size())
+	: Request(client_id, protocol::RequestCode::SEND_FILE, sizeof(uint32_t) + sizeof(original_size) + sizeof(uint16_t) + sizeof(uint16_t) + protocol::FILENAME_SIZE + content.size())
 	, m_content(content)
 	, m_original_size(original_size)
 	, m_filename(filename)

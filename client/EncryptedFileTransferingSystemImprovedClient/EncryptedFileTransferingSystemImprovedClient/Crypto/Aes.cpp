@@ -9,25 +9,17 @@
 
 buffer::Buffer crypto::aes::encrypt(const buffer::Buffer& data, const buffer::Buffer& aes_key)
 {
-    static constexpr size_t NUM_BITS_IN_BYTE = 8;
     if (aes_key.size() != DEFAULT_AES_KEY_SIZE) {
         throw std::runtime_error("invalid AES key length");
     }
 
     buffer::Byte iv[CryptoPP::AES::BLOCKSIZE]{ IV_UNINITIALIZED_VALUE };
+    CryptoPP::CBC_Mode<CryptoPP::AES>::Encryption e;
+    e.SetKeyWithIV(aes_key.data(), aes_key.size(), iv);
 
-    CryptoPP::CBC_Mode<CryptoPP::AES>::Encryption encryption;
-    encryption.SetKeyWithIV(aes_key.data(), aes_key.size(), iv);
+    std::string plaintext(data.begin(), data.end());
+    std::string ciphertext;
+    CryptoPP::StringSource ss(plaintext, true, new CryptoPP::StreamTransformationFilter(e, new CryptoPP::StringSink(ciphertext)));
 
-    buffer::Buffer ciphertext;
-    ciphertext.resize(data.size() + CryptoPP::AES::BLOCKSIZE); // Add space for IV
-
-    std::copy(iv, iv + CryptoPP::AES::BLOCKSIZE, ciphertext.begin());
-
-    CryptoPP::ArraySink cs(&ciphertext[CryptoPP::AES::BLOCKSIZE], ciphertext.size() - CryptoPP::AES::BLOCKSIZE);
-
-    CryptoPP::ArraySource(data.data(), data.size(), true,
-        new CryptoPP::StreamTransformationFilter(encryption, new CryptoPP::Redirector(cs)));
-
-    return ciphertext;
+    return buffer::Buffer(ciphertext.begin(), ciphertext.end());
 }

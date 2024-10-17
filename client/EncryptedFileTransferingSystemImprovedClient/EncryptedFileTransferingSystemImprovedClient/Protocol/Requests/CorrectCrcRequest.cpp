@@ -1,7 +1,8 @@
 #include "CorrectCrcRequest.hpp"
+#include "../Protocol.hpp"
 
 protocol::CorrectCrcRequest::CorrectCrcRequest(const buffer::Buffer& client_id, const std::string& filename)
-    : Request(client_id, protocol::RequestCode::CORRECT_CRC, filename.size())
+    : Request(client_id, protocol::RequestCode::CORRECT_CRC, protocol::FILENAME_SIZE)
     , m_filename(filename)
 {
 }

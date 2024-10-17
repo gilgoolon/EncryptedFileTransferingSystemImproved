@@ -2,7 +2,6 @@ import ctypes
 import enum
 import struct
 
-
 CLIENT_NAME_SIZE = 255
 FILENAME_SIZE = 255
 
@@ -64,7 +63,8 @@ ReconnectPayload = SignupPayload
 class SendFilePayload:
     def __init__(self, data: bytes) -> None:
         self._content_size, self._original_file_size, self._packet_number, self._total_packets, self._filename \
-            = struct.unpack(f"<IIHH{FILENAME_SIZE}s", data)
+            = struct.unpack(f"<IIHH{FILENAME_SIZE}s", data[:ctypes.sizeof(ctypes.c_uint32) * 2 +
+                                                           ctypes.sizeof(ctypes.c_uint16) * 2 + FILENAME_SIZE])
         self._content = data[ctypes.sizeof(ctypes.c_uint32) * 2 + ctypes.sizeof(ctypes.c_uint16) * 2
                              + FILENAME_SIZE:]
         self._filename = self._filename.decode()

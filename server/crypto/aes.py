@@ -8,7 +8,7 @@ DEFAULT_KEY_SIZE = 256 // 8
 
 
 def decrypt(data: bytes, key: bytes) -> bytes:
-    cipher = AES.new(key, AES.MODE_ECB)
+    cipher = AES.new(key, AES.MODE_CBC)
     decrypted_data = cipher.decrypt(data)
     return unpad(decrypted_data, AES.block_size)
 

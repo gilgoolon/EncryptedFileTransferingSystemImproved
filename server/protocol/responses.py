@@ -69,7 +69,10 @@ class GotFileWithCrcResponse(Response):
 
     def serialize(self) -> bytes:
         return super().serialize() + struct.pack(f"<{CLIENT_ID_SIZE}sI{FILENAME_SIZE}sI",
-                                                 self._client_id, self._content_size, self._filename, self._checksum)
+                                                 self._client_id,
+                                                 self._content_size,
+                                                 self._filename.encode(),
+                                                 self._checksum)
 
 
 class OkConfirmationResponse(Response):
