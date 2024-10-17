@@ -139,6 +139,7 @@
     <ClCompile Include="Common\OsUtils.cpp" />
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
     <ClCompile Include="Common\Logging\Logger.cpp" />
+    <ClCompile Include="Protocol\Protocol.cpp" />
     <ClCompile Include="Protocol\Requests\CorrectCrcRequest.cpp" />
     <ClCompile Include="Protocol\Requests\IncorrectCrcDoneRequest.cpp" />
     <ClCompile Include="Protocol\Requests\IncorrectCrcSendingAgainRequest.cpp" />

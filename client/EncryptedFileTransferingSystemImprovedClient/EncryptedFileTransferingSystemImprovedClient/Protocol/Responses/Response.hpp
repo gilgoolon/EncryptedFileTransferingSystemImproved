@@ -53,6 +53,4 @@ private:
 	ResponseCode m_code;
 	uint32_t m_payload_size;
 };
-
-std::unique_ptr<Response> make_response(const buffer::Buffer& data);
 };
