@@ -2,8 +2,8 @@
 #include "../Protocol.hpp"
 #include "../../Common/StringUtils.hpp"
 
-protocol::SignupRequest::SignupRequest(const buffer::Buffer& client_id, const std::string& client_name)
-	: Request(client_id, protocol::RequestCode::SIGNUP, client_name.size())
+protocol::SignupRequest::SignupRequest(const std::string& client_name)
+	: Request(buffer::Buffer(CLIENT_ID_SIZE, CLIENT_ID_UNINITIALIZED_VALUE), protocol::RequestCode::SIGNUP, client_name.size())
 	, m_client_name(client_name)
 {
 }
