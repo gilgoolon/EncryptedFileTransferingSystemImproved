@@ -149,6 +149,7 @@
     <ClCompile Include="Common\Readers\SocketReader.cpp" />
     <ClCompile Include="Common\Logging\Logger.cpp" />
     <ClCompile Include="Crypto\Aes.cpp" />
+    <ClCompile Include="Crypto\Crc.cpp" />
     <ClCompile Include="Crypto\Rsa.cpp" />
     <ClCompile Include="Config\TransferInfo.cpp" />
     <ClCompile Include="Protocol\Protocol.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Common\Readers\SocketReader.hpp" />
     <ClInclude Include="Common\Logging\Logger.hpp" />
     <ClInclude Include="Crypto\Aes.hpp" />
+    <ClInclude Include="Crypto\Crc.hpp" />
     <ClInclude Include="Crypto\Rsa.hpp" />
     <ClInclude Include="Config\TransferInfo.hpp" />
     <ClInclude Include="Protocol\Protocol.hpp" />

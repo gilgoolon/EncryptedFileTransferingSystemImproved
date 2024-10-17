@@ -123,6 +123,9 @@
     <ClCompile Include="Config\TransferInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Crypto\Crc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\OsUtils.hpp">
@@ -234,6 +237,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Config\TransferInfo.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypto\Crc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
