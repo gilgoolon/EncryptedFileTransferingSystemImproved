@@ -19,7 +19,7 @@ void protocol::Response::deserialize(const buffer::Buffer& data)
 	m_payload_size = deserialize_uint<uint32_t>(data.begin() + sizeof m_version + sizeof m_response_code);
 }
 
-size_t protocol::Response::size() const
+size_t protocol::Response::size()
 {
 	return sizeof(m_version) + sizeof(m_response_code) + sizeof(m_payload_size);
 }

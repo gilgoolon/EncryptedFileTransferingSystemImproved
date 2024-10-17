@@ -6,6 +6,7 @@
 
 struct ClientInfo {
 	std::string name;
-	std::optional<buffer::Buffer> id;
-	std::optional<buffer::Buffer> private_key;
+	buffer::Buffer id;
+	buffer::Buffer private_key;
+	bool is_registered = false;
 };

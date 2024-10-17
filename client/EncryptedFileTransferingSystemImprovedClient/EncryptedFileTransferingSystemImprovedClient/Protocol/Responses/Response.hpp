@@ -19,7 +19,7 @@ namespace protocol {
 	public:
 		virtual void deserialize(const buffer::Buffer& data) override;
 
-		size_t size() const;
+		static size_t size();
 
 		ResponseCode get_response_code() const;
 

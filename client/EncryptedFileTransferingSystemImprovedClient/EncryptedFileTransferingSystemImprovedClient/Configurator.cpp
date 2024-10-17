@@ -56,5 +56,5 @@ ClientInfo configurator::make_client_info(const std::filesystem::path& me_info_p
 	std::getline(me_info, line);
 	const buffer::Buffer private_key = base64::decode(line);
 
-	return ClientInfo{ name, id, private_key };
+	return ClientInfo{ name, id, private_key, true };
 }
