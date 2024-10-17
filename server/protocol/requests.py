@@ -19,7 +19,9 @@ class RequestCode(enum.Enum):
 
 class Request:
     def __init__(self, data: bytes) -> None:
+        print(data)
         self._version, self._code, self._payload_size = struct.unpack("<BHI", data[:self.size()])
+        self._code = RequestCode(self._code)
         self._payload = data[self.size():]
 
     def get_code(self) -> RequestCode:

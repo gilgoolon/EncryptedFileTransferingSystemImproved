@@ -26,7 +26,19 @@ buffer::Buffer serialize_uint(const UintType data)
 {
     buffer::Buffer out(sizeof(data));
     for (size_t i = 0; i < out.size(); i++) {
-        out.push_back((data >> (out.size() - i - 1) * 8) & 0xff);
+        out[i] = (data >> (i * 8)) & 0xff;
     }
     return out;
 }
+
+
+//template <typename UintType>
+//buffer::Buffer serialize_uint(const UintType data)
+//{
+//    buffer::Buffer out(sizeof(data));
+//    for (size_t i = 0; i < out.size(); i++) {
+//        out[i] = (data >> (out.size() - i - 1) * 8) & 0xff;
+//    }
+//    return out;
+//}
+

@@ -10,6 +10,6 @@ protocol::Request::Request(const buffer::Buffer& client_id, const RequestCode re
 
 buffer::Buffer protocol::Request::serialize() const
 {
-	return concat_vectors(m_client_id, serialize_uint<uint8_t>(CLIENT_VERSION), serialize_uint<uint16_t>(static_cast<uint16_t>(m_request_code)), serialize_uint<uint32_t>(m_payload_size));
+	return concat_vectors(serialize_uint<uint8_t>(CLIENT_VERSION), serialize_uint<uint16_t>(static_cast<uint16_t>(m_request_code)), serialize_uint<uint32_t>(m_payload_size), m_client_id);
 }
 

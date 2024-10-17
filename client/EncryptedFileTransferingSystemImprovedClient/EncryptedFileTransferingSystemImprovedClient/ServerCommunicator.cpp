@@ -9,7 +9,8 @@ ServerCommunicator::ServerCommunicator(std::unique_ptr<IReader> server_reader, s
 
 void ServerCommunicator::send(std::unique_ptr<protocol::Request> request)
 {
-	m_server_writer->write(request->serialize());
+	auto serialized = request->serialize();
+	m_server_writer->write(serialized);
 }
 
 std::unique_ptr<protocol::Response> ServerCommunicator::receive()
