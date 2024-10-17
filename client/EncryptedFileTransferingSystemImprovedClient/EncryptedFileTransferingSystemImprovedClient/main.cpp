@@ -9,11 +9,24 @@ std::filesystem::path ME_INFO_PATH = "me.info";
 
 int main()
 {
-	const auto transfer_info = config::make_transfer_info(TRANSFER_INFO_PATH);
-	ClientInfo client_info;
+	config::TransferInfo transfer_info;
+	try {
+		transfer_info = config::make_transfer_info(TRANSFER_INFO_PATH);
+	}
+	catch (const std::exception& ex) {
+		std::cout << "Failed to parse transfer.info. Error: " << ex.what() << std::endl;
+		return EXIT_FAILURE;
+	}
+	config::ClientInfo client_info;
 	client_info.name = transfer_info.client_name;
 	if (std::filesystem::exists(ME_INFO_PATH)) {
-		client_info = config::make_client_info(ME_INFO_PATH);
+		try {
+			client_info = config::make_client_info(ME_INFO_PATH);
+		}
+		catch (const std::exception& ex) {
+			std::cout << "Failed to parse me.info. Error: " << ex.what() << std::endl;
+			return EXIT_FAILURE;
+		}
 	}
 
 	std::unique_ptr<Client> client;
