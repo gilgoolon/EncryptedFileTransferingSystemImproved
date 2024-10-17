@@ -1,3 +1,4 @@
+import logging
 import socket
 import threading
 
@@ -26,4 +27,5 @@ class Server:
             handler.handle()
         except Exception as e:
             client_socket.send(Response(ResponseCode.SERVER_ERROR, 0).serialize())
+            logging.exception(e)
             print(f"Server error when handling client: {e}")

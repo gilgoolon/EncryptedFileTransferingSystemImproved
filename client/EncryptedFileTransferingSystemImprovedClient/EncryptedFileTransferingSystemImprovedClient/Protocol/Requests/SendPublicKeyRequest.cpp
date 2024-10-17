@@ -3,7 +3,7 @@
 #include "../../Common/StringUtils.hpp"
 
 protocol::SendPublicKeyRequest::SendPublicKeyRequest(const buffer::Buffer& client_id, const std::string& client_name, const buffer::Buffer& public_key)
-	: Request(client_id, protocol::RequestCode::SEND_PUBLIC_KEY, client_name.size() + m_public_key.size())
+	: Request(client_id, protocol::RequestCode::SEND_PUBLIC_KEY, CLIENT_NAME_SIZE + public_key.size())
 	, m_client_name(client_name)
 	, m_public_key(public_key)
 {
