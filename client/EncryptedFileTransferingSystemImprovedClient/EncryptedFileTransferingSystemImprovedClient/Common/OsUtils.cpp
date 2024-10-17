@@ -6,18 +6,20 @@
 buffer::Buffer os_utils::read_binary_file(const std::filesystem::path& path)
 {
     constexpr size_t SEEK_FILE_BEGINNING = 0;
-
+    
     std::ifstream file(path, std::ios::binary | std::ios::ate);
     if (!file) {
-        throw std::runtime_error("Failed to open file");
+        throw std::runtime_error("Failed to open file: " + path.string());
     }
-
-    const auto file_size = file.tellg();
+    
+    std::streamsize file_size = file.tellg();
     file.seekg(SEEK_FILE_BEGINNING, std::ios::beg);
-
-    buffer::Buffer buff;
-    file.read(reinterpret_cast<char*>(buff.data()), file_size);
-    return buff;
+    
+    buffer::Buffer buffer(file_size);
+    if (!file.read(reinterpret_cast<char*>(buffer.data()), file_size)) {
+        throw std::runtime_error("Failed to read file: " + path.string());
+    }
+    return buffer;
 }
 
 std::string os_utils::read_text_file(const std::filesystem::path& path)
