@@ -56,7 +56,7 @@ void Client::sign_up()
 	buffer::Buffer public_key;
 	crypto::rsa::generate_key_pair(m_client_info.private_key, public_key);
 
-	response = m_server_communicator->send_and_receive(std::make_unique<protocol::SendPublicKeyRequest>(m_client_info.id, public_key), protocol::ResponseCode::SENDING_AES_KEY);
+	response = m_server_communicator->send_and_receive(std::make_unique<protocol::SendPublicKeyRequest>(m_client_info.id, m_client_info.name, public_key), protocol::ResponseCode::SENDING_AES_KEY);
 	m_aes_key = static_cast<protocol::SendingAesKeyResponse*>(response.get())->get_aes_key();
 
 	INFO("Successfully signed up with id " + hex::encode(m_client_info.id));

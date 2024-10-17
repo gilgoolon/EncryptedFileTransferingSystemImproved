@@ -1,5 +1,6 @@
 #include <string>
 
+#include "../Common/Buffer.hpp"
 
 namespace crypto {
 	namespace rsa {
