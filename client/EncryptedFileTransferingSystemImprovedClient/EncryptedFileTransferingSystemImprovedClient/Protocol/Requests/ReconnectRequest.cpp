@@ -3,7 +3,7 @@
 #include "../../Common/StringUtils.hpp"
 
 protocol::ReconnectRequest::ReconnectRequest(const buffer::Buffer& client_id, const std::string& client_name)
-	: Request(client_id, protocol::RequestCode::RECONNECT, client_name.size())
+	: Request(client_id, protocol::RequestCode::RECONNECT, CLIENT_NAME_SIZE)
 	, m_client_name(client_name)
 {
 }
