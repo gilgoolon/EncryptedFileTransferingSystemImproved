@@ -52,7 +52,10 @@ void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
 			LOG_INFO("Successfully transferred file");
 			return;
 		}
-		LOG_INFO("Try " + std::to_string(i + 1) + ": failed to send file.")
+		LOG_INFO("Try " + std::to_string(i + 1) + ": failed to send file.");
+		if (i < MAX_SEND_FILES_RETRIES - 1) {
+			m_server_communicator->send(std::make_unique<protocol::IncorrectCrcSendingAgainRequest>(m_client_info.id, file_to_trasnfer.filename().string()));
+		}
 	}
 	m_server_communicator->send_and_receive(std::make_unique<protocol::IncorrectCrcDoneRequest>(m_client_info.id, file_to_trasnfer.filename().string()), protocol::ResponseCode::OK_CONFIRMATION);
 	throw std::runtime_error("Failed to send file " + std::to_string(MAX_SEND_FILES_RETRIES) + " times");
