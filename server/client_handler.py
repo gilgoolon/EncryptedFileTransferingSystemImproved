@@ -82,7 +82,7 @@ class ClientHandler:
         send_file_payload = SendFilePayload(request.get_payload())
         file_content = aes.decrypt(send_file_payload.get_content(),
                                    self._aes_key)
-        path = self._files_path / self._client_id.hex() / send_file_payload.get_filename()
+        path = self._files_path / self._client_name / send_file_payload.get_filename()
         os.makedirs(path.parent, exist_ok=True)
         path.write_bytes(file_content)
         self._db_manager.save_file(self._client_id, path.absolute())
