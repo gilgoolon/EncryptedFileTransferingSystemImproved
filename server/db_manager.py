@@ -104,3 +104,29 @@ class DBManager:
 
     def clean_client(self, name: str) -> None:
         self._execute_update(f"DELETE FROM {self.CLIENTS_TABLE_NAME} WHERE name = ?", name)
+
+    def get_file_path(self, client_id: bytes, filename: str, enforce_verified: bool = False) -> Path:
+        results = self._execute_select(f"SELECT path, verified FROM {self.FILES_TABLE_NAME} "
+                                       f"WHERE filename = ? AND client_id = ?",
+                                       filename, client_id)
+        if len(results) == 0:
+            raise exceptions.FileDoesntExistException()
+
+        path, is_verified, = results[0]
+        if enforce_verified and not is_verified:
+            raise exceptions.FileDoesntExistException("File isn't verified")
+        return Path(path)
+
+    def save_file(self, client_id: bytes, path: Path) -> None:
+        try:
+            self.get_file_path(client_id, path.name)
+            self._execute_update(f"UPDATE {self.FILES_TABLE_NAME} SET "
+                                 f"path = ?, verified = ?",
+                                 str(path), False)
+        except exceptions.FileDoesntExistException:
+            self._execute_update(f"INSERT INTO {self.FILES_TABLE_NAME} VALUES(?, ?, ?, ?)",
+                                 client_id, path.name, str(path), False)
+
+    def verify_file(self, client_id: bytes, filename: str) -> None:
+        self._execute_update(f"UPDATE {self.FILES_TABLE_NAME} SET verified = ? "
+                             f"WHERE client_id = ? AND filename = ?", True, client_id, filename)

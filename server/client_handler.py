@@ -1,11 +1,12 @@
-import logging
+import os
 import random
 import socket
+from pathlib import Path
 from typing import Optional
 
 import exceptions
 from crypto import aes, rsa, crc
-from db.db_manager import DBManager
+from db_manager import DBManager
 from protocol.requests import RequestCode, Request, SendPublicKeyPayload, SendFilePayload, ReconnectPayload, \
     SignupPayload
 from protocol.responses import Response, SignupSuccessResponse, CLIENT_ID_SIZE, SendingAesKeyResponse, \
@@ -14,9 +15,10 @@ from protocol.responses import Response, SignupSuccessResponse, CLIENT_ID_SIZE, 
 
 
 class ClientHandler:
-    def __init__(self, client_socket: socket.socket, db_manager: DBManager) -> None:
+    def __init__(self, client_socket: socket.socket, db_manager: DBManager, files_path: Path) -> None:
         self._client_socket = client_socket
         self._db_manager = db_manager
+        self._files_path = files_path
         self._client_name: Optional[str] = None
         self._client_id: Optional[bytes] = None
         self._public_key: Optional[bytes] = None
@@ -65,28 +67,32 @@ class ClientHandler:
                                                    f"got {request.get_code()}")
 
     def _handle_send_file(self) -> None:
-        content = bytes()
+        filename = str()
         while True:
             try:
-                content = self._try_receive_file()
+                filename = self._try_receive_file()
                 break
             except exceptions.InvalidChecksumException:
                 continue
-        # save file in db
-        print(f"Saving file in db... Size: {len(content)} bytes")
+        self._db_manager.verify_file(self._client_id, filename)
 
-    def _try_receive_file(self) -> Optional[bytes]:
+    def _try_receive_file(self) -> str:
         request = self._receive_request(RequestCode.SEND_FILE)
         send_file_payload = SendFilePayload(request.get_payload())
         file_content = aes.decrypt(send_file_payload.get_content(),
                                    self._aes_key)
+        path = self._files_path / self._client_id.hex() / send_file_payload.get_filename()
+        os.makedirs(path.parent, exist_ok=True)
+        path.write_bytes(file_content)
+        self._db_manager.save_file(self._client_id, path.absolute())
+
         checksum = crc.calculate(file_content)
         response = GotFileWithCrcResponse(self._client_id, len(send_file_payload.get_content()),
                                           send_file_payload.get_filename(), checksum)
         confirmation_request = self._send_and_receive(response)
         if confirmation_request.get_code() is RequestCode.CORRECT_CRC:
             self._send_response(OkConfirmationResponse(self._client_id))
-            return file_content
+            return send_file_payload.get_filename()
         if confirmation_request.get_code() is RequestCode.INCORRECT_CRC_DONE:
             raise exceptions.InvalidChecksumNoMoreException("Got invalid checksum and client is done sending")
         raise exceptions.InvalidChecksumException()

@@ -1,11 +1,12 @@
 from pathlib import Path
 
-import db.db_manager
+from db_manager import DBManager
 from server import Server
 
 PORT_INFO_PATH = Path("port.info")
 DEFAULT_PORT = 1256
 DB_PATH = Path("defensive.db")
+FILES_PATH = Path("backup")
 
 
 def main() -> None:
@@ -15,8 +16,8 @@ def main() -> None:
         print(f"WARNING: Defaulted to default port {DEFAULT_PORT}")
         port = DEFAULT_PORT
 
-    db_manager = db.db_manager.DBManager(DB_PATH)
-    server = Server(db_manager, port)
+    db_manager = DBManager(DB_PATH)
+    server = Server(db_manager, port, FILES_PATH)
     server.start()
 
 

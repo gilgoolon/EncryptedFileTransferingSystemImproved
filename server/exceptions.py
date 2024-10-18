@@ -27,3 +27,9 @@ class ClientAlreadyExists(Exception):
     """
     A client tries to register with a name that already exists
     """
+
+
+class FileDoesntExistException(Exception):
+    """
+    When a requested filename doesn't exist in the db or isn't verified
+    """
