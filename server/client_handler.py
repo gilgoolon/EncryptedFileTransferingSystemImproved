@@ -73,7 +73,7 @@ class ClientHandler:
                 filename = self._try_receive_file()
                 break
             except exceptions.InvalidChecksumException:
-                
+
                 continue
         self._db_manager.verify_file(self._client_id, filename)
 
@@ -87,7 +87,7 @@ class ClientHandler:
         path.write_bytes(file_content)
         self._db_manager.save_file(self._client_id, path.absolute())
 
-        checksum = crc.calculate(file_content) + 1
+        checksum = crc.calculate(file_content)
         response = GotFileWithCrcResponse(self._client_id, len(send_file_payload.get_content()),
                                           send_file_payload.get_filename(), checksum)
         confirmation_request = self._send_and_receive(response)
@@ -95,6 +95,7 @@ class ClientHandler:
             self._send_response(OkConfirmationResponse(self._client_id))
             return send_file_payload.get_filename()
         if confirmation_request.get_code() is RequestCode.INCORRECT_CRC_DONE:
+            self._send_response(OkConfirmationResponse(self._client_id))
             raise exceptions.InvalidChecksumNoMoreException("Got invalid checksum and client is done sending")
         raise exceptions.InvalidChecksumException()
 
