@@ -38,7 +38,7 @@ class Request:
 
 class SignupPayload:
     def __init__(self, data: bytes) -> None:
-        self._client_name: str = data.decode()
+        self._client_name: str = data.decode().split('\0', 1)[0]
 
     def get_client_name(self) -> str:
         return self._client_name
@@ -67,7 +67,7 @@ class SendFilePayload:
                                                            ctypes.sizeof(ctypes.c_uint16) * 2 + FILENAME_SIZE])
         self._content = data[ctypes.sizeof(ctypes.c_uint32) * 2 + ctypes.sizeof(ctypes.c_uint16) * 2
                              + FILENAME_SIZE:]
-        self._filename = self._filename.decode()
+        self._filename = self._filename.decode().split('\0', 1)[0]
 
     def get_content_size(self) -> int:
         return self._content_size
@@ -90,7 +90,7 @@ class SendFilePayload:
 
 class CorrectCrcPayload:
     def __init__(self, data: bytes) -> None:
-        self._filename = data.decode()
+        self._filename = data.decode().split('\0', 1)[0]
 
     def get_filename(self) -> str:
         return self._filename

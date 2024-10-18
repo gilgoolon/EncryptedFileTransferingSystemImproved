@@ -43,7 +43,6 @@ void Client::transfer_file(const std::filesystem::path& file_to_trasnfer)
 	const auto file_content = os_utils::read_binary_file(file_to_trasnfer);
 	const auto encrypted_content = crypto::aes::encrypt(file_content, m_aes_key);
 	const auto file_checksum = crypto::crc::calculate(file_content);
-	LOG_INFO(std::to_string(file_checksum));
 	for (size_t i = 0; i < MAX_SEND_FILES_RETRIES; i++) {
 		LOG_INFO("Try " + std::to_string(i + 1) + ": sending file");
 		auto response = m_server_communicator->send_and_receive(std::make_unique<protocol::SendFileRequest>(m_client_info.id, encrypted_content, file_content.size(), file_to_trasnfer.filename().string()), protocol::ResponseCode::GOT_FILE_WITH_CRC);

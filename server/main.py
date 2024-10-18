@@ -1,9 +1,11 @@
 from pathlib import Path
 
+import db.db_manager
 from server import Server
 
 PORT_INFO_PATH = Path("port.info")
 DEFAULT_PORT = 1256
+DB_PATH = Path("defensive.db")
 
 
 def main() -> None:
@@ -13,7 +15,8 @@ def main() -> None:
         print(f"WARNING: Defaulted to default port {DEFAULT_PORT}")
         port = DEFAULT_PORT
 
-    server = Server(port)
+    db_manager = db.db_manager.DBManager(DB_PATH)
+    server = Server(db_manager, port)
     server.start()
 
 

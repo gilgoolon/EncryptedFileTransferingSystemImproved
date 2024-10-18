@@ -15,3 +15,15 @@ class InvalidChecksumNoMoreException(Exception):
     """
     When a file has a wrong checksum and not continuing to retry
     """
+
+
+class ClientDoesntExist(Exception):
+    """
+    When a client tries to log in with a non-existing client id
+    """
+
+
+class ClientAlreadyExists(Exception):
+    """
+    A client tries to register with a name that already exists
+    """

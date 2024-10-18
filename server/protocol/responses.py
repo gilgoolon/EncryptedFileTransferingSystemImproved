@@ -96,9 +96,9 @@ class ReconnectSuccessSendingAesResponse(Response):
                                                  self._client_id, self._encrypted_aes_key)
 
 
-class ReconnectFailed(Response):
+class ReconnectFailedResponse(Response):
     def __init__(self, client_id: bytes) -> None:
-        super(ReconnectFailed, self).__init__(ResponseCode.RECONNECT_FAILED, CLIENT_ID_SIZE)
+        super(ReconnectFailedResponse, self).__init__(ResponseCode.RECONNECT_FAILED, CLIENT_ID_SIZE)
         self._client_id = client_id
 
     def serialize(self) -> bytes:

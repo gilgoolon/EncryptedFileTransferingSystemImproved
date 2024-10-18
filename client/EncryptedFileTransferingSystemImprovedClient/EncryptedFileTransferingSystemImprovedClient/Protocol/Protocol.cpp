@@ -17,33 +17,31 @@ std::unique_ptr<protocol::Response> protocol::make_response(const buffer::Buffer
 	switch (header.get_code()) {
 	case ResponseCode::SIGNUP_SUCCESS:
 		response = std::make_unique<protocol::SignupSuccessResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
 	case ResponseCode::SIGNUP_FAILED:
 		response = std::make_unique<SignupFailedResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
 	case ResponseCode::SENDING_AES_KEY:
 		response = std::make_unique<SendingAesKeyResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
 	case ResponseCode::GOT_FILE_WITH_CRC:
 		response = std::make_unique<GotFileWithCrcResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
 	case ResponseCode::OK_CONFIRMATION:
 		response = std::make_unique<OkConfirmationResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
+	case ResponseCode::RECONNECT_SUCCESS_SENDING_AES:
+		response = std::make_unique<ReconnectSuccessSendingAesKeyResponse>();
+		break;
 	case ResponseCode::RECONNECT_FAILED:
 		response = std::make_unique<ReconnectFailedResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
 	case ResponseCode::SERVER_ERROR:
 		response = std::make_unique<ServerErrorResponse>();
-		response->deserialize(data);
-		return std::move(response);
+		break;
 	default:
 		throw std::invalid_argument("invalid response code " + std::to_string(static_cast<uint16_t>(header.get_code())) + " when parsing a response in protocol::make_response()");
 	}
+	response->deserialize(data);
+	return std::move(response);
 }
